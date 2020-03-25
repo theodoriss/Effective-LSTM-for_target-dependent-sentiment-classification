@@ -19,11 +19,9 @@ def create_dataframe(file_path):
     with open(file_path,encoding='utf-8') as file:
         for line in file:
             sentences.append(line.strip('\n').lower().split()) 
-            #sentences_text.append(line.strip('\n').lower())
             target.append(next(file).strip('\n'))
             label.append(int(next(file).strip('\n')))
-    #for i in range(len(sentences_text)):
-        #sentences_text[i]=sentences_text[i].replace('$t$',str(target[i])) # replace symbol with target
+
 
     words_left=[]# list of lists
     words_right=[]# list of lists
@@ -31,8 +29,6 @@ def create_dataframe(file_path):
         for position,word in enumerate(sentence):
             if word=='$t$':
                 words_left.append(sentence[:position]+[target[target_number]])
-                #wr=[target[target_number]]+sentence[position+1:]
-                #wr.reverse()
                 words_right.append([target[target_number]]+sentence[position+1:])
                 break
 

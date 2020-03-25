@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+
 
 
 import tensorflow as tf
@@ -25,13 +25,6 @@ import main
 
 
 
-# In[2]:
-
-
-
-
-# In[3]:
-
 
 train_data=main.create_dataframe('train.raw')
 test_data=main.create_dataframe('test.raw')
@@ -39,39 +32,24 @@ test_data=main.create_dataframe('test.raw')
 
 # ### Preprocessing of data
 
-# In[7]:
+
 
 
 train_processed = train_data.apply(lambda x: main.preprocessing(x,train_data) if x.name in ['sentence', 'words_left','words_right'] else x)
 test_processed = test_data.apply(lambda x: main.preprocessing(x,test_data) if x.name in ['sentence', 'words_left','words_right'] else x)
 
 
-# In[5]:
-
 
 tokenizer,X_train_left,X_train_right,X_train,X_test_left,X_test_right,X_test,Y_train,Y_test=main.create__inputs_outputs(train_processed,test_processed,num_of_tokenizer=250)
-
-
-# In[6]:
 
 
 word2vec = api.load("glove-twitter-100")
 
 
-# In[7]:
-
-
 L=main.create_matrix_L(tokenizer,word2vec)
 
 
-# In[8]:
-
-
 del word2vec,tokenizer,train_processed,test_processed
-
-
-# In[9]:
-
 
 stopping = EarlyStopping(monitor='val_loss', patience=4,restore_best_weights=False,verbose=1)
 
